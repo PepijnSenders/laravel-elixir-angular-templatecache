@@ -7,7 +7,7 @@ elixir.extend("angulartemplatecache", function(module, from, to, wrap) {
 
     if(wrap){
 
-        gulp.task("angulartemplatecache", function() {
+        gulp.task("angulartemplatecache-" + module, function() {
             gulp.src(from)
                 .pipe(templateCache({module: module}))
                 .pipe(insert.wrap('(function(angular) {', '})(angular);'))
@@ -16,7 +16,7 @@ elixir.extend("angulartemplatecache", function(module, from, to, wrap) {
 
     } else{
 
-        gulp.task("angulartemplatecache", function() {
+        gulp.task("angulartemplatecache-" + module, function() {
             gulp.src(from)
                 .pipe(templateCache({module: module}))
                 .pipe(gulp.dest(to));
@@ -24,7 +24,7 @@ elixir.extend("angulartemplatecache", function(module, from, to, wrap) {
 
     }
 
-    this.registerWatcher("angulartemplatecache", from);
-    return this.queueTask("angulartemplatecache");
+    this.registerWatcher("angulartemplatecache-" + module, from);
+    return this.queueTask("angulartemplatecache-" + module);
 
 });
